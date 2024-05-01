@@ -20,9 +20,10 @@ npm run build
 
 ```
 ## Important
-> It ia TODO-APP (Vue.js) project  using real-time database (firebase) in this project i'm using my firebase database url ** (database url:valide upto 4/5/2024)**
+> It ia TODO-APP (Vue.js) project using real-time database (firebase) in this project i'm using my firebase database url .
+** (database url:valide upto 4/5/2024)**
 
 
-[GitHub](https://github.com)
+[GitHub](https://github.com/anandmohanam/todo-app.git)
 
 
