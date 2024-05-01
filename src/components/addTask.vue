@@ -5,8 +5,8 @@
       <label>Task Title:</label>
       <input type="text" v-model.lazy="task.title" required />
       <label>Description:</label>
-      <textarea v-model.lazy.trim="task.description" @keydown.delete.prevent></textarea>
-      <!-- ^^^ Prevent the default behavior of delete key -->
+      <textarea v-model.lazy.trim="task.description"></textarea>
+      
       <label>Deadline:</label>
       <input type="date" v-model.trim="task.deadline" />
       <div class="button-container">
@@ -19,7 +19,7 @@
       <strong>Warning!</strong> Please fill in all fields.
     </div>
     <div v-if="showAlert1" class="alert alert-success">
-      <strong>Success!</strong> Reminder added.
+      <strong>Success!</strong> Task added.
     </div>
   </div>
 </template>

@@ -7,6 +7,7 @@
       <option value="Completed">Completed</option>
       <option value="Pending">Pending</option>
       <option value="In Progress">In Progress</option>
+      <option value="">Not Updated</option>
     </select>
     <router-link v-for="task in filteredTasks" :to="'/task/' + task.id" :key="task.id">
       <div :class="['single-task', getTaskColor(task.status)]">
