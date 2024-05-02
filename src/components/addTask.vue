@@ -32,11 +32,14 @@ export default {
         title: '',
         description: '',
         deadline: '',
+        status: 'Not Updated'
+
         
       },
       submitted: false,
       showAlert: false,
       showAlert1: false, // Initially hide the alert
+      
     };
   },
   methods: {
