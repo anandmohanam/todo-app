@@ -46,7 +46,7 @@
 
     <!-- Audio Alert -->
     <audio ref="alertSound">
-      <source src="@/assets/alert.wav" type="audio/wav">
+      <source src="../assets/alert.wav" type="audio/wav">
     </audio>
     
   </div>
@@ -146,12 +146,30 @@ export default {
       audio.play(); // Play audio alert
       window.alert(`Reminder "${reminder.note}" reached the set time!`); // Show alert message
       audio.pause(); // Pause audio alert
+      this.playAlert();
     },
     // Method to clear form fields
     clearForm() {
       this.reminder.note = '';
       this.reminder.selectedInterval = '';
-    }
+    },
+    // Method to play audio alert
+    playAlert() {
+  var audio = new Audio('../assets/alert.wav'); // Load audio from assets directory
+  audio.loop = true; // Loop the audio
+
+  // Play the audio
+  audio.play();
+
+  // Log any errors related to loading or playing audio
+  audio.addEventListener('error', function(e) {
+    console.error('Error loading audio:', e);
+  });
+  audio.addEventListener('ended', function() {
+    audio.pause(); // Pause the audio when it finishes playing
+  });
+}
+
   },
   // Fetch reminders when the component is created
   created() {

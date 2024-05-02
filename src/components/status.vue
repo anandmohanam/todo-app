@@ -2,7 +2,7 @@
   <div id="show-Task">
     <h1>All Tasks</h1>
     <input type="text" v-model="search" placeholder="Search tasks" />
-    <div v-for="task in tasks" class="single-task" :key="task.id">
+    <div v-for="task in filteredTasks" class="single-task" :key="task.id">
       <router-link :to="'/task/' + task.id">
         <h2>{{ task.title }}</h2>
       </router-link>
@@ -25,13 +25,21 @@ export default {
   data() {
     return {
       tasks: [],
-      search: ''
+      search: '',
     };
   },
   created() {
     this.fetchTasks();
   },
   mixins: [searchMixin],
+  computed: {
+    filteredTasks() {
+      return this.tasks.filter(task =>
+        task.title.toLowerCase().includes(this.search.toLowerCase()) ||
+        task.description.toLowerCase().includes(this.search.toLowerCase())
+      );
+    }
+  },
   methods: {
     fetchTasks() {
       this.$http.get('https://todo-982a8-default-rtdb.firebaseio.com/posts.json')
@@ -76,7 +84,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 #show-Task {

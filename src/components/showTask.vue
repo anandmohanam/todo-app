@@ -2,12 +2,12 @@
   <div id="show-Task">
     <h1>All Tasks</h1>
     <input type="text" v-model="search" placeholder="Search tasks" />
-    <select v-model="statusFilteredTasks" class="filter">
+    <select v-model="statusFilter" class="filter">
       <option value="">All Status</option>
       <option value="Completed">Completed</option>
       <option value="Pending">Pending</option>
       <option value="In Progress">In Progress</option>
-      <option value="">Not Updated</option>
+      
     </select>
     <router-link v-for="task in filteredTasks" :to="'/task/' + task.id" :key="task.id">
       <div :class="['single-task', getTaskColor(task.status)]">
@@ -16,13 +16,10 @@
           <p>{{ task.description }}</p>
           <p>Deadline: {{ task.deadline }}</p>
           <h4>Status: {{ task.status }}</h4>
-          
         </article>
       </div>
     </router-link>
-    
   </div>
-  
 </template>
 
 <script>
@@ -34,15 +31,35 @@
       return {
         tasks: [],
         search: '',
-        statusFilteredTasks:'',
-       
+        statusFilter: '',
       };
     },
     created() {
       this.fetchTasks();
-     
     },
     mixins: [searchMixin],
+    computed: {
+      filteredTasks: function() {
+        let filtered = this.tasks;
+
+        // Apply search filter
+        if (this.search) {
+          filtered = filtered.filter(task => {
+            return task.title.toLowerCase().includes(this.search.toLowerCase()) ||
+                   task.description.toLowerCase().includes(this.search.toLowerCase());
+          });
+        }
+
+        // Apply status filter
+        if (this.statusFilter !== '') {
+          filtered = filtered.filter(task => task.status === this.statusFilter);
+        } else if (this.statusFilter === 'Not Updated') {
+          filtered = filtered.filter(task => !task.status);
+        }
+
+        return filtered;
+      }
+    },
     methods: {
       fetchTasks() {
         this.$http.get('https://todo-982a8-default-rtdb.firebaseio.com/posts.json')
@@ -59,7 +76,6 @@
             console.error('Error fetching tasks:', error);
           });
       },
-     
       getTaskColor(status) {
         switch (status) {
           case 'Completed':
@@ -80,7 +96,7 @@
   #show-Task {
     max-width: 800px;
     margin: 0 auto;
-    }
+  }
   .single-task {
     padding: 20px;
     margin: 20px 0;

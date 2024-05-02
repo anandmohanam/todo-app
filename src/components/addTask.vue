@@ -32,6 +32,7 @@ export default {
         title: '',
         description: '',
         deadline: '',
+        
       },
       submitted: false,
       showAlert: false,

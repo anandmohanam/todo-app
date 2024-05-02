@@ -8,7 +8,7 @@ export default {
   
       statusFilteredTasks: function() {
         if (!this.statusFilter) {
-          return this.tasks; // Return all tasks if statusFilter is empty
+          return this.tasks == !tasks.status; // Return all tasks if statusFilter is empty
         }
         return this.tasks.filter((task) => {
           return task.status === this.statusFilter;
